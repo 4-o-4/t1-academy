@@ -7,6 +7,7 @@ import com.example.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,5 +39,10 @@ public class TimeServiceImpl implements TimeService {
     public Time save(StopWatch stopWatch, TrackAsyncTime requestMethod) {
         Time entity = new Time(requestMethod, stopWatch);
         return this.timeRepository.save(entity);
+    }
+
+    @Override
+    public long getTotalTrackTimeByMethod(RequestMethod method) {
+        return this.timeRepository.getTotalTrackTimeByMethod(method);
     }
 }

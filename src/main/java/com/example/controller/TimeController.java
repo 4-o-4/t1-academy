@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("/api/v1/times")
@@ -29,9 +30,16 @@ public class TimeController {
         return this.timeService.findById(id).orElseThrow();
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping("/{id}")
     @TrackAsyncTime(RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         this.timeService.deleteById(id);
+    }
+
+    @PostMapping({"", "/"})
+    @TrackAsyncTime(RequestMethod.POST)
+    public long totalTrackTimeByMethod(@RequestBody String method) {
+        Optional<RequestMethod> requestMethod = Optional.ofNullable(RequestMethod.resolve(method.toUpperCase()));
+        return requestMethod.map(this.timeService::getTotalTrackTimeByMethod).orElse(-1L);
     }
 }

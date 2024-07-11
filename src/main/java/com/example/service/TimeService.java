@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.annotation.TrackAsyncTime;
 import com.example.entity.Time;
 import org.springframework.util.StopWatch;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +16,6 @@ public interface TimeService {
     void deleteById(Long id);
 
     Time save(StopWatch stopWatch, TrackAsyncTime requestMethod);
+
+    long getTotalTrackTimeByMethod(RequestMethod method);
 }
