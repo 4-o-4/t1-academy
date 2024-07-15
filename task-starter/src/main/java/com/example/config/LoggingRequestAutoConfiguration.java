@@ -1,4 +1,4 @@
-package com.example.starter;
+package com.example.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -7,10 +7,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @ComponentScan("com.example")
-public class LogRequestAutoConfiguration implements WebMvcConfigurer {
+public class LoggingRequestAutoConfiguration implements WebMvcConfigurer {
     private final HandlerInterceptor handlerInterceptor;
 
-    public LogRequestAutoConfiguration(
+    public LoggingRequestAutoConfiguration(
             @Qualifier("requestInterceptor") HandlerInterceptor handlerInterceptor) {
         this.handlerInterceptor = handlerInterceptor;
     }

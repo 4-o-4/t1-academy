@@ -1,15 +1,20 @@
 package com.example.service;
 
+import com.example.config.LoggingProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
 @Service
+@EnableConfigurationProperties(LoggingProperties.class)
 public class EnhancedLogService {
+    private final String level;
     private Logger logger;
-    @Value("${log.level:trace}")
-    private String level;
+
+    public EnhancedLogService(LoggingProperties loggingProperties) {
+        this.level = loggingProperties.getLevel().toLowerCase();
+    }
 
     public EnhancedLogService setNameLogger(Class<?> clazz) {
         this.logger = LoggerFactory.getLogger(clazz);
@@ -22,7 +27,7 @@ public class EnhancedLogService {
      * @param message the message to log
      */
     public void log(String message) {
-        switch (level.toLowerCase()) {
+        switch (level) {
             case "error":
                 logger.error(message);
                 break;
