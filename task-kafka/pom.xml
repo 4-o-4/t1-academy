@@ -17,6 +17,7 @@
 
     <modules>
         <module>metrics-producer</module>
+        <module>metrics-consumer</module>
     </modules>
 
     <properties>
