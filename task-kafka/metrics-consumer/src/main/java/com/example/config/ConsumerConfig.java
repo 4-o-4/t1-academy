@@ -2,6 +2,7 @@ package com.example.config;
 
 import com.example.consumer.Listener;
 import com.example.dto.Status;
+import com.example.service.StatusService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
@@ -52,8 +53,8 @@ public class ConsumerConfig {
     }
 
     @Bean
-    public Listener listener() {
-        return new Listener();
+    public Listener listener(StatusService statusService) {
+        return new Listener(statusService);
     }
 
     private Map<String, Object> consumerConfigs() {

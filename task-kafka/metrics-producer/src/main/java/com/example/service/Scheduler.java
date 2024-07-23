@@ -20,7 +20,7 @@ public class Scheduler {
         this.sender = sender;
     }
 
-    @Scheduled(fixedRate = 1000, initialDelay = 1000)
+    @Scheduled(fixedDelay = 10000, initialDelay = 10000)
     public void schedulingTask() throws IOException {
         StringBuilder result = new StringBuilder();
         URL url = new URL("http://localhost:8080/actuator/health");
