@@ -5,8 +5,9 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>t1-academy-kafka</artifactId>
+        <artifactId>t1-academy</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>t1-academy-kafka-producer</artifactId>
