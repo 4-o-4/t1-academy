@@ -19,6 +19,8 @@ import java.util.Map;
 @Configuration
 @EnableScheduling
 public class ProducerConfig {
+    @Value("${spring.kafka.bootstrap-servers}")
+    private String bootstrapServers;
     @Value("${topic.name}")
     private String topicName;
 
@@ -44,7 +46,7 @@ public class ProducerConfig {
 
     private Map<String, Object> senderProps() {
         Map<String, Object> props = new HashMap<>();
-        props.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, this.bootstrapServers);
         props.put(org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
         props.put(org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         return props;
