@@ -16,6 +16,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
+        <module>task-aop</module>
         <module>task-starter</module>
         <module>task-kafka/metrics-consumer</module>
         <module>task-kafka/metrics-producer</module>
@@ -33,12 +34,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

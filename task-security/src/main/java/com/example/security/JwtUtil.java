@@ -36,7 +36,6 @@ public class JwtUtil {
     public String getUsernameFromToken(String token) {
         return Jwts.parser().verifyWith(getSigningKey()).build()
                 .parseSignedClaims(token).getPayload().getSubject();
-
     }
 
     private Boolean isTokenExpired(String token) {
