@@ -22,5 +22,11 @@ make task-kafka-clean
 ```
 API for viewing metrics [localhost:8081/metrics](http://localhost:8081/metrics)
 
+####  Authentication and authorization using Spring Security and JWT ([task-security](https://github.com/4-o-4/t1-academy/tree/main/task-security))
+```makefile
+# Start the application
+make task-security
+```
+
 #### Ressources
 - [Аспектно-ориентированное программирование](http://www.k-press.ru/CS/2003/4/AOP2/AOP.asp)
