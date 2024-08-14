@@ -1,6 +1,10 @@
 # t1-academy
 
 #### Method execution time tracking system ([task-aop](https://github.com/4-o-4/t1-academy/tree/main/task-aop))
+```makefile
+# Start the application
+make task-aop
+```
 
 #### Spring Boot Starter for HTTP request logging ([task-starter](https://github.com/4-o-4/t1-academy/tree/main/task-starter))
 Dependency
