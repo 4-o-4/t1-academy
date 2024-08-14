@@ -16,28 +16,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Data
 @Entity
 @Table(name = "times")
-public class Time {
+public class RequestLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Enumerated(EnumType.STRING)
     private RequestMethod requestMethod;
-
     private String nameMethod;
-
     private long trackTime;
 
-    public Time(TrackAsyncTime requestMethod, StopWatch stopWatch) {
+    public RequestLog(TrackAsyncTime requestMethod, StopWatch stopWatch) {
         this(requestMethod.value(), stopWatch.lastTaskInfo().getTaskName(), stopWatch.lastTaskInfo().getTimeNanos());
     }
 
-    public Time(RequestMethod requestMethod, String nameMethod, long trackTime) {
+    public RequestLog(RequestMethod requestMethod, String nameMethod, long trackTime) {
         this.requestMethod = requestMethod;
         this.nameMethod = nameMethod;
         this.trackTime = trackTime;
     }
 
-    public Time() {
+    public RequestLog() {
     }
 }

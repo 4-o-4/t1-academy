@@ -1,8 +1,8 @@
 package com.example.controller;
 
 import com.example.annotation.TrackAsyncTime;
-import com.example.entity.Time;
-import com.example.service.TimeService;
+import com.example.entity.RequestLog;
+import com.example.service.RequestLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,11 +25,11 @@ import java.util.Optional;
 @Tag(name = "TrackAsyncTime", description = "Система учета времени выполнения методов")
 @RestController()
 @RequestMapping("/api/v1/times")
-public class TimeController {
-    private final TimeService timeService;
+public class RequestLogController {
+    private final RequestLogService requestLogService;
 
-    public TimeController(@Autowired TimeService timeService) {
-        this.timeService = timeService;
+    public RequestLogController(@Autowired RequestLogService requestLogService) {
+        this.requestLogService = requestLogService;
     }
 
     @Operation(tags = "TrackAsyncTime", summary = "Gets all trackTime")
@@ -40,31 +40,31 @@ public class TimeController {
             content = {
                 @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = Time.class))
+                    schema = @Schema(implementation = RequestLog.class))
             })
     })
     @GetMapping()
     @TrackAsyncTime
-    public List<Time> getAll() {
-        return this.timeService.findAll();
+    public List<RequestLog> getAll() {
+        return this.requestLogService.findAll();
     }
 
     @GetMapping("/{id}")
     @TrackAsyncTime
-    public Time get(@PathVariable Long id) {
-        return this.timeService.findById(id).orElseThrow();
+    public RequestLog get(@PathVariable Long id) {
+        return this.requestLogService.findById(id).orElseThrow();
     }
 
     @DeleteMapping("/{id}")
     @TrackAsyncTime(RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        this.timeService.deleteById(id);
+        this.requestLogService.deleteById(id);
     }
 
     @PostMapping()
     @TrackAsyncTime(RequestMethod.POST)
     public long totalTrackTimeByMethod(@RequestBody String method) {
         Optional<RequestMethod> requestMethod = Optional.ofNullable(RequestMethod.resolve(method.toUpperCase()));
-        return requestMethod.map(this.timeService::getTotalTrackTimeByMethod).orElse(-1L);
+        return requestMethod.map(this.requestLogService::sumTrackTimeByRequestMethod).orElse(-1L);
     }
 }

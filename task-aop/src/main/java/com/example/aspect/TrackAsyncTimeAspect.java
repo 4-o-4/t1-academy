@@ -1,7 +1,7 @@
 package com.example.aspect;
 
 import com.example.annotation.TrackAsyncTime;
-import com.example.service.TimeService;
+import com.example.service.RequestLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,11 +17,10 @@ import java.util.concurrent.CompletableFuture;
 @Aspect
 @Component
 public class TrackAsyncTimeAspect {
-    private final TimeService timeService;
-    private StopWatch stopWatch;
+    private final RequestLogService requestLogService;
 
-    public TrackAsyncTimeAspect(@Autowired TimeService timeService) {
-        this.timeService = timeService;
+    public TrackAsyncTimeAspect(@Autowired RequestLogService requestLogService) {
+        this.requestLogService = requestLogService;
     }
 
     @Pointcut("@annotation(requestMethod)")
@@ -30,18 +29,18 @@ public class TrackAsyncTimeAspect {
 
     @Around(value = "pointcut(requestMethod)", argNames = "joinPoint, requestMethod")
     public Object asyncRecord(ProceedingJoinPoint joinPoint, TrackAsyncTime requestMethod) {
-        this.stopWatch = new StopWatch();
-        this.stopWatch.start(joinPoint.getSignature().toShortString());
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start(joinPoint.getSignature().toShortString());
         Object object = null;
         try {
             object = joinPoint.proceed();
         } catch (Throwable e) {
             log.error("Ошибка TrackAsyncTimeAspect", e);
         }
-        this.stopWatch.stop();
+        stopWatch.stop();
         CompletableFuture.runAsync(() -> {
-            this.timeService.save(stopWatch, requestMethod);
-            log.info(this.stopWatch.prettyPrint());
+            this.requestLogService.save(stopWatch, requestMethod);
+            log.info(stopWatch.prettyPrint());
         });
         return object;
     }
