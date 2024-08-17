@@ -16,7 +16,8 @@ import java.util.Optional;
 public class RequestLogServiceImpl implements RequestLogService {
     private final RequestLogRepository requestLogRepository;
 
-    public RequestLogServiceImpl(@Autowired RequestLogRepository requestLogRepository) {
+    @Autowired
+    public RequestLogServiceImpl(RequestLogRepository requestLogRepository) {
         this.requestLogRepository = requestLogRepository;
     }
 

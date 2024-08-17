@@ -28,7 +28,8 @@ import java.util.Optional;
 public class RequestLogController {
     private final RequestLogService requestLogService;
 
-    public RequestLogController(@Autowired RequestLogService requestLogService) {
+    @Autowired
+    public RequestLogController(RequestLogService requestLogService) {
         this.requestLogService = requestLogService;
     }
 

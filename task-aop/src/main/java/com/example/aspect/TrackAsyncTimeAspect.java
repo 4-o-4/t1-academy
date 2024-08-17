@@ -19,7 +19,8 @@ import java.util.concurrent.CompletableFuture;
 public class TrackAsyncTimeAspect {
     private final RequestLogService requestLogService;
 
-    public TrackAsyncTimeAspect(@Autowired RequestLogService requestLogService) {
+    @Autowired
+    public TrackAsyncTimeAspect(RequestLogService requestLogService) {
         this.requestLogService = requestLogService;
     }
 
